@@ -1,43 +1,50 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchMenuData } from '../../features/menuSlice'; 
+import './productList.css';
+import { useState } from "react";
+import { useGetMenuQuery } from "../../services/menu";
+import ProductCart from "../productCard/ProductCart";
 
 const ProductList = () => {
-  const dispatch = useDispatch();
-  const menuData = useSelector((state) => state.menu);
-
-  useEffect(() => {
-    console.log('ProductList component mounted');
-    dispatch(fetchMenuData());
-  }, [dispatch]);
-
-  console.log('menuData:', menuData);
-
-  if (menuData.status === 'loading') {
+  const { data, error, isLoading } = useGetMenuQuery();
+  const [category, setCategory] = useState("all");
+  const [categoryStates, setCategoryStates] = useState({});
+  if (isLoading) {
     return <div>Loading...</div>;
   }
-
-  if (menuData.status === 'failed') {
-    return <div>Error: {menuData.error}</div>;
+  if (error) {
+    return <div>Error: {error.message}</div>;
   }
+
+  const categories = Object.keys(data);
+
+  const filteredProducts = category === "all" ?
+    Object.values(data).flatMap(cat => cat) :
+    data[category];
 
   return (
     <div>
       <h1>Product List</h1>
-      {menuData.pizzas.length === 0 ? (
-        <div>No pizzas available</div>
-      ) : (
-        menuData.pizzas.map((pizza) => (
-          <div key={pizza.name}>
-            <h3>{pizza.name}</h3>
-            <p>Description: {pizza.description}</p>
-            <p>Price: ${pizza.price.toFixed(2)}</p>
-          </div>
-        ))
-      )}
+      <div>
+        <span
+          className={`categories ${category === 'all' ? 'active' : ''}`}
+          onClick={() => setCategory("all")}
+        >
+          All
+        </span>
+        {categories.map((cat) => (
+          <span
+            key={cat}
+            className={`categories ${category === cat ? 'active' : ''}`}
+            onClick={() => setCategory(cat)}
+          >
+            {cat}
+          </span>
+        ))}
+      </div>
+      {filteredProducts.map((item) => (
+        <ProductCart key={item.name} item={item} />
+      ))}
     </div>
   );
 };
 
 export default ProductList;
-

@@ -1,11 +1,14 @@
 import { combineReducers } from '@reduxjs/toolkit';
-import productsReducer from '../features/productsSlice';
+import { pokemonApi } from '../services/pokemon';
+import { menuApi } from '../services/menu';
 import cartReducer from '../features/cartSlice';
-import menuReducer from '../features/menuSlice'
+import userReducer from '../features/userSlice'
+
 const rootReducer = combineReducers({
-  products: productsReducer,
-  menu: menuReducer,
   cart: cartReducer,
+  user: userReducer,
+  [pokemonApi.reducerPath]: pokemonApi.reducer,
+  [menuApi.reducerPath]: menuApi.reducer,
 });
 
 export default rootReducer;

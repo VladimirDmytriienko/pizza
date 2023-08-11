@@ -1,4 +1,12 @@
 .header {
+    display: flex;
     border: 4px solid black;
     border-radius: 0.5rem;
+}
+.nav-list {
+    display: flex;
+    list-style: none; 
+}
+#nav-link.active {
+    background-color: #ED8936;
 }
