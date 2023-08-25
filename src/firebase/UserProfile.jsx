@@ -1,37 +1,43 @@
-import { useState, useEffect } from 'react';
-import { doc, getDoc } from 'firebase/firestore';
-import { db } from './firebase';
+import { Box, Grid, GridItem, Text } from '@chakra-ui/react'; 
 import useUserData from './useUserData';
+import { returnDate } from './utils/dateUtils';
 
 const UserProfile = ({ userEmail }) => {
-  
-
   const userData = useUserData(userEmail);
 
   return (
-    <div>
-      {userData && (
-        <div>
-          <p>User: {userData.name}</p>
-          <p>Email: {userData.email}</p>
-          <h2>Orders:</h2>
+    <Box p="4">
+      {userData ? (
+        <Box>
+          <Text fontSize="xl">Hello: {userEmail}!</Text>
+          <Text fontSize="2xl" mt="4">
+            Your orders
+          </Text>
           {userData.orders && userData.orders.length > 0 ? (
-            <ul>
-              {userData.orders.map((order) => (
-                <li key={order.id}>
-                  <p>Title: {order.title}</p>
-                  <p>Amount: {order.amount}</p>
-                </li>
+            <Grid templateColumns="repeat(auto-fill, minmax(300px, 1fr))" gap="4" mt="4">
+              {userData.orders.map((order, index) => (
+                <GridItem key={index} borderWidth="1px" p="4" borderRadius="md">
+                  <Text fontSize="md" fontWeight="bold" mb="2">
+                    Order date: {returnDate(order.id)}
+                  </Text>
+                  {order.order.map((item, itemIndex) => (
+                    <Text key={itemIndex}>
+                      {item.name} {item.quantity}
+                    </Text>
+                  ))}
+                  <Text mt="2">Amount: {order.total}</Text>
+                </GridItem>
               ))}
-            </ul>
+            </Grid>
           ) : (
-            <p>No orders found.</p>
+            <Text>No orders found.</Text>
           )}
-        </div>
+        </Box>
+      ) : (
+        <Text>Loading user data...</Text>
       )}
-    </div>
+    </Box>
   );
 };
 
 export default UserProfile;
-

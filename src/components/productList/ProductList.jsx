@@ -2,13 +2,14 @@ import './productList.css';
 import { useState } from "react";
 import { useGetMenuQuery } from "../../services/menu";
 import ProductCart from "../productCard/ProductCart";
+import { SimpleGrid, Spinner } from "@chakra-ui/react";
 
 const ProductList = () => {
   const { data, error, isLoading } = useGetMenuQuery();
   const [category, setCategory] = useState("all");
   const [categoryStates, setCategoryStates] = useState({});
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div className='spinner'><Spinner color='red.500' /></div> ;
   }
   if (error) {
     return <div>Error: {error.message}</div>;
@@ -21,9 +22,8 @@ const ProductList = () => {
     data[category];
 
   return (
-    <div>
-      <h1>Product List</h1>
-      <div>
+    <div className='productList'>
+      <div className='categorie-list__wrapper'>
         <span
           className={`categories ${category === 'all' ? 'active' : ''}`}
           onClick={() => setCategory("all")}
@@ -40,11 +40,15 @@ const ProductList = () => {
           </span>
         ))}
       </div>
-      {filteredProducts.map((item) => (
-        <ProductCart key={item.name} item={item} />
-      ))}
+
+      <SimpleGrid columns={[1, 2, 3, 4]} spacing={6}>
+        {filteredProducts.map((item) => (
+          <ProductCart key={item.name} item={item} />
+        ))}
+      </SimpleGrid>
     </div>
   );
 };
 
 export default ProductList;
+

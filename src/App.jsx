@@ -44,11 +44,9 @@ function App() {
 
   return (
     <ChakraProvider theme={theme}>
-      <Container >
+      <Container maxW='container.xl'   minH="100vh">
         <RouterProvider router={router} />
       </Container>
-
-
 
       {/* <div className='temporaly-grid'>
         </div> */}

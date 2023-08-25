@@ -42,12 +42,24 @@ export const Auth = () => {
   const handleGoogleSignIn = async () => {
     const provider = new GoogleAuthProvider();
     try {
-      await signInWithPopup(auth, provider);
+      const userCredential = await signInWithPopup(auth, provider);
+  
+      const userDocRef = doc(db, 'users', userCredential.user.email);
+      const userDocSnapshot = await getDoc(userDocRef);
+  
+      if (!userDocSnapshot.exists()) {
+       
+        await setDoc(userDocRef, {
+          orders: [],
+        });
+      }
+  
       handleCloseModal();
     } catch (err) {
       console.error(err);
     }
   };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -106,8 +118,8 @@ export const Auth = () => {
     <div>
       {user ? (
         <div>
-          <p>Welcome, {user.email}!</p>
-          <Button onClick={handleLogout} colorScheme="red">
+          {/* <p>Welcome, {user.email}!</p> */}
+          <Button onClick={handleLogout}  colorScheme="red">
             Logout
           </Button>
           {/* {userData && (
