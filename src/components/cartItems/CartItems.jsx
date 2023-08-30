@@ -12,9 +12,10 @@ import {
   Button,
 } from "@chakra-ui/react";
 import CartProduct from "./cartPrroduct/CartProduct";
-import AddOrderForm from "../../firebase/AddOrderForm";
+
 import { useDispatch, useSelector } from "react-redux";
 import { clearCart } from "../../features/cartSlice";
+import CheckoutModal from "./checkoutModal/CheckoutModal";
 
 const CartItems = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -57,26 +58,9 @@ const CartItems = () => {
       <Button onClick={handleOpenModal} colorScheme="yellow">
         Checkout
       </Button>
+      
+      <CheckoutModal isOpen={isModalOpen} onClose={handleCloseModal} user={user} cart={cart} total={total} handleClearCart={handleClearCart}/>
 
-      <Modal isOpen={isModalOpen} onClose={handleCloseModal} >
-        <ModalOverlay />
-        <ModalContent  maxW="500px">
-          <ModalHeader>Checkout</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            {user ? (
-              <AddOrderForm userEmail={user} cart={cart} total={total} clearCart={handleClearCart} />
-            ) : (
-              <Text>Please register or log in to proceed with the checkout.</Text>
-            )}
-          </ModalBody>
-          <ModalFooter>
-          <Button colorScheme="yellow" mr={3} onClick={handleCloseModal} size="sm">
-             Close
-          </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
     </Box>
   );
 };

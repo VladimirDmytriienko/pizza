@@ -5,14 +5,15 @@ import { Auth } from '../../firebase/auth'
 import { BsCart4 } from 'react-icons/bs';
 import pizzaLogo from '../../assets/img/pizzaLogo.webp';
 const Header = () => {
+  
   const cart = useSelector((state) => state.cart.value)
-  // console.log(cart.length);
-  // console.log(cart);
+  
   return (
     <header className="header">
       <div className='header-logo'>
         <Link to="/"> <img src={pizzaLogo} alt="pizza-logo" className='pizza-logo' />  <h3 className='pizza-text'>Pizza app</h3>  </Link>
       </div>
+
       <div className='header-links'>
         <NavLink to="/"  id='nav-link'>  Home</NavLink>
         <NavLink to="/cart"  id='nav-link'> Cart</NavLink>

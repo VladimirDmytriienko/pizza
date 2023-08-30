@@ -1,4 +1,3 @@
-import './CartProduct.css'
 import { increaseQuantity, decreaseQuantity, addToCart } from '../../../features/cartSlice'
 import { useDispatch } from 'react-redux'
 import { Box, Image, Button, Flex, Text } from '@chakra-ui/react';
@@ -14,15 +13,15 @@ const CartProduct = ({ item }) => {
   };
 
   return (
-    <Box p="4" mt="4" bg="white" borderRadius="md" boxShadow="base">
+    <Box p="2" mt="4" bg="white" borderRadius="md" boxShadow="base">
       <Flex align="center" justify="space-between">
         <Image src={item.image} alt={item.name} maxW="80px" maxH="80px" objectFit="cover" />
-        <Box flex="1" ml="4">
+        <Box flex="1" ml="4" >
           <Text fontSize="lg" fontWeight="bold">
             {item.name}
           </Text>
           <Text color="gray.600">{item.description}</Text>
-          <Flex align="center" justify="space-between">
+          <Flex align="center" justify="space-between"  >
             <Text fontWeight="bold">${item.price}</Text>
             <Flex align="center">
               <Button size="sm" onClick={() => dispatch(increaseQuantity(item))}>
@@ -36,15 +35,17 @@ const CartProduct = ({ item }) => {
               >
                 -
               </Button>
+              <Box
+                as={BsTrashFill}
+                color="red.500"
+                ml="4"
+                cursor="pointer"
+                onClick={() => dispatch(addToCart(item))}
+              />
             </Flex>
           </Flex>
         </Box>
-        <Box
-          as={BsTrashFill}
-          color="red.500"
-          cursor="pointer"
-          onClick={() => dispatch(addToCart(item))}
-        />
+
       </Flex>
     </Box>
   );

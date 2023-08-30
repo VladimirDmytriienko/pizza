@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from 'react-redux';
-import './productCart.css';
 import { addToCart } from '../../features/cartSlice';
 import { Button, Box, Flex, Image, Text, Stack } from '@chakra-ui/react';
 
@@ -29,7 +28,7 @@ const ProductCart = ({ item }) => {
       height='100%'
       overflow='hidden'
     >
-      {/* <Image src={item.image} alt={item.name} maxH='150px' objectFit='cover' alignSelf='center' /> */}
+      <Image src={item.image} alt={item.name} maxH='150px' objectFit='cover' alignSelf='center' />
 
       <Stack
         as={Flex} 

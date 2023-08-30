@@ -5,7 +5,7 @@ import { Heading } from "@chakra-ui/react";
 
 const UserOrders = () => {
   const userData = useSelector((state) => state.user.currentUser);
-    console.log(userData);
+
     return (
       <div>
         {
