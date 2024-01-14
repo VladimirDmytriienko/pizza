@@ -3,7 +3,7 @@ import Header from "../components/header/Header"
 import { Box } from '@chakra-ui/react'
 
 
- const Layout = () => {
+const Layout = () => {
     return (
         <div>
             <Header />

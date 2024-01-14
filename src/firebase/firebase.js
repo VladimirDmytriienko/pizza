@@ -2,14 +2,15 @@ import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 const API_KEY = import.meta.env.VITE_API_KEY
-
+const  APPID = import.meta.env.VITE_APPID
+const  MSG = import.meta.env.VITE_MSG
 const firebaseConfig = {
   apiKey:  API_KEY,
   authDomain: "pizzza-pet-project.firebaseapp.com",
   projectId: "pizzza-pet-project",
   storageBucket: "pizzza-pet-project.appspot.com",
-  messagingSenderId: "206775684482",
-  appId: "1:206775684482:web:1d4edb78c3f342aa88139b"
+  messagingSenderId: MSG,
+  appId: APPID
 };
 
 const app = initializeApp(firebaseConfig);
