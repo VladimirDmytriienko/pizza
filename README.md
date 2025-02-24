@@ -1,5 +1,4 @@
-# https://pizza-app-dmitrienko.netlify.app/orders
-PS don't worry site is safe!!!
+
 
 ![Снимок экрана 2024-01-14 204955](https://github.com/VladimirDmytriienko/pizza-app-react-redux-firebase/assets/89876159/a9d4c89f-9a7d-4b8d-8e32-a824a7d4e6f5)
 
